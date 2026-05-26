@@ -225,6 +225,22 @@
     font-size: clamp(2rem, 5vw, 3.5rem);
     color: var(--cream);
   }
+  .passions-title .aside {
+    font-family: 'Caveat', cursive;
+    color: var(--muted);
+    font-size: 1.25rem;
+    margin-top: .5rem;
+    font-style: italic;
+  }
+  .ps {
+    font-family: 'Caveat', cursive;
+    color: var(--gold);
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+    text-align: center;
+    margin-top: 3rem;
+    font-style: italic;
+    letter-spacing: .5px;
+  }
   .passions {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.5rem;
@@ -419,7 +435,7 @@
     transform: rotate(-2deg);
   }
   .penne-photo img {
-    display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover;
+    display: block; width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top;
     filter: sepia(.4) contrast(1.05);
   }
   .penne-photo .caption {
@@ -551,7 +567,9 @@
       <div>
         <div class="stamp">~ ooit, in een vorig leven ~</div>
         <h2>De Pennelekker</h2>
-        <p>De man heeft ooit een restaurant gerund. Verwacht dus geen voorgevouwen servetten en al zeker geen droge taart. Er wordt gegeten zoals het hoort.</p>
+        <p>Guido heeft ooit een restaurant gerund.
+          Verwacht dus geen voorgevouwen servetten en al zeker geen droge taart
+          maar het zal zeker in orde zijn!</p>
       </div>
     </div>
   </div>
@@ -561,6 +579,7 @@
     <div class="passions-title reveal">
       <div class="small">~ wat hem doet stralen ~</div>
       <h2>Drie grote liefdes</h2>
+      <p class="aside">… en Lieve dan?</p>
     </div>
 
     <div class="bike-strip reveal">
@@ -613,10 +632,12 @@
           <path d="M32 10 C42 18, 42 46, 32 54"/>
         </svg>
         <h3>De Wereld</h3>
-        <p>Een koffer staat altijd half gepakt. Er is altijd nog een dorp, een markt, een uitzicht dat hij wil zien.</p>
+        <p>De mobi staat altijd vertrekkensklaar. Er is altijd nog een dorp, een markt, een uitzicht dat hij wil zien.</p>
       </div>
 
     </div>
+
+    <p class="ps reveal">… en Lieve dan?</p>
   </section>
 
   <!-- ============ GALLERY ============ -->
