@@ -1,0 +1,7 @@
+title: "Guido 70"
+description: "Guido wordt 70 — kom mee vieren"
+
+exclude:
+  - README.md
+  - QR-Codes
+  - .git
