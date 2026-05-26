@@ -1,15 +1,79 @@
-<h1>Guido verjaart</h1>
-
-<a href="25-7">25-7</a>
-<br />
-<a href="31-7">31-7</a>
-<br />
-<a href="2-8">2-8</a>
-<br />
-<a href="3-8">3-8</a>
-
-
-<br /><br /><br />
-<a href="de-bodtjes">de-bodtjes</a>
-<br />
-<a href="van-schandevijls">van-schandevijls</a>
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guido 70</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,900&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a0f0a;
+    --cream: #f6e9d0;
+    --gold: #e6b045;
+    --gold-bright: #ffd479;
+    --copper: #c8632a;
+    --muted: #b89978;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Playfair Display', serif;
+    background: var(--bg);
+    color: var(--cream);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+  .backdrop {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse at 20% 10%, #4a2818 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, #5a2a18 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, #2a160d 0%, #100806 100%);
+  }
+  .eyebrow {
+    font-family: 'Caveat', cursive;
+    color: var(--gold);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    letter-spacing: 1px;
+    margin-bottom: .5rem;
+  }
+  .name {
+    font-weight: 500;
+    font-size: clamp(2rem, 6vw, 4rem);
+    letter-spacing: 2px;
+    color: var(--cream);
+    margin-bottom: .5rem;
+  }
+  .seventy {
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(11rem, 38vw, 26rem);
+    line-height: .85;
+    background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 40%, var(--copper) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 80px rgba(230,176,69,0.25);
+  }
+  .tagline {
+    font-style: italic;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    margin-top: 1.5rem;
+  }
+</style>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main>
+    <div class="eyebrow">~ save the date ~</div>
+    <div class="name">Guido</div>
+    <div class="seventy">70</div>
+    <p class="tagline">Coming soon.</p>
+  </main>
+</body>
+</html>
