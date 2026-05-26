@@ -1,5 +1,7 @@
 title: "Guido 70"
 description: "Guido wordt 70 — kom mee vieren"
+url: "https://breibeest.github.io"
+baseurl: "/guido-70"
 
 exclude:
   - README.md
