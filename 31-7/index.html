@@ -381,6 +381,92 @@
   .reveal { opacity: 0; transform: translateY(40px); transition: all 1s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
+  /* ---------- Hero portrait ---------- */
+  .hero-frame {
+    margin-top: 2.5rem;
+    width: clamp(220px, 22vw, 300px);
+    aspect-ratio: 4/5;
+    position: relative;
+    padding: 12px;
+    background: linear-gradient(180deg, rgba(230,176,69,.15), rgba(200,99,42,.08));
+    border: 1px solid rgba(230,176,69,.4);
+    box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 40px rgba(230,176,69,.1);
+    opacity: 0; animation: fadeUp 1.2s 1.4s forwards;
+  }
+  .hero-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: sepia(.25) contrast(1.05) brightness(.95);
+  }
+  .hero-frame::before, .hero-frame::after {
+    content: ""; position: absolute; width: 16px; height: 16px; border: 1px solid var(--gold);
+  }
+  .hero-frame::before { top: -4px; left: -4px; border-right: none; border-bottom: none; }
+  .hero-frame::after  { bottom: -4px; right: -4px; border-left: none; border-top: none; }
+
+  /* ---------- Pennelekker with photo ---------- */
+  .penne-wrap {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 5rem);
+    align-items: center; max-width: 1000px; margin: 0 auto;
+    text-align: left;
+  }
+  @media (max-width: 700px) { .penne-wrap { grid-template-columns: 1fr; text-align: center; } }
+  .penne-photo {
+    position: relative;
+    padding: 12px;
+    background: rgba(246,233,208,.06);
+    border: 1px solid rgba(230,176,69,.35);
+    box-shadow: 0 20px 50px rgba(0,0,0,.6);
+    transform: rotate(-2deg);
+  }
+  .penne-photo img {
+    display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover;
+    filter: sepia(.4) contrast(1.05);
+  }
+  .penne-photo .caption {
+    text-align: center; font-family: 'Caveat', cursive; color: var(--gold);
+    margin-top: .5rem; font-size: 1.1rem;
+  }
+  .pennelekker .penne-wrap h2 { text-align: left; }
+  @media (max-width: 700px) { .pennelekker .penne-wrap h2 { text-align: center; } }
+
+  /* ---------- Gallery ---------- */
+  .gallery-title { text-align: center; margin-bottom: 3rem; }
+  .gallery-title .small { font-family: 'Caveat', cursive; color: var(--gold); font-size: 1.3rem; letter-spacing: 2px; }
+  .gallery-title h2 {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.5rem); color: var(--cream);
+  }
+  .gallery {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 900px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+  .gallery figure {
+    margin: 0; position: relative; overflow: hidden;
+    background: rgba(246,233,208,.04);
+    border: 1px solid rgba(230,176,69,.2);
+    aspect-ratio: 1; transition: all .4s;
+  }
+  .gallery figure:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .gallery figure img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: sepia(.3) saturate(.9) contrast(1.02);
+    transition: all .6s;
+  }
+  .gallery figure:hover img { filter: sepia(0) saturate(1) contrast(1); transform: scale(1.05); }
+  .gallery figure figcaption {
+    position: absolute; inset: auto 0 0 0;
+    padding: 1rem .8rem .6rem;
+    background: linear-gradient(0deg, rgba(20,12,8,.95), transparent);
+    font-family: 'Caveat', cursive; color: var(--gold-bright);
+    font-size: 1rem; letter-spacing: .5px;
+    opacity: 0; transform: translateY(8px); transition: all .4s;
+  }
+  .gallery figure:hover figcaption { opacity: 1; transform: translateY(0); }
+  .gallery figure.tall { grid-row: span 2; aspect-ratio: 1/2; }
+  @media (max-width: 600px) { .gallery figure.tall { grid-row: span 1; aspect-ratio: 1; } }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   }
@@ -407,6 +493,9 @@
         <circle cx="100" cy="10" r="3" />
         <path d="M85 10 Q92 4 100 10 Q108 16 115 10" />
       </svg>
+    </div>
+    <div class="hero-frame">
+      <img src="../images/guido-feest.jpg" alt="Guido op een feestje">
     </div>
     <div class="scroll-cue">scroll ↓</div>
   </section>
@@ -454,9 +543,17 @@
 
   <!-- ============ PENNELEKKER ============ -->
   <div class="pennelekker reveal">
-    <div class="stamp">~ ooit, in een vorig leven ~</div>
-    <h2>De Pennelekker</h2>
-    <p>De man heeft ooit een restaurant gerund. Verwacht dus geen voorgevouwen servetten en al zeker geen droge taart. Er wordt gegeten zoals het hoort.</p>
+    <div class="penne-wrap">
+      <div class="penne-photo">
+        <img src="../images/guido-dient-op.jpg" alt="Guido bedient in De Pennelekker">
+        <div class="caption">~ jaren '70, in vol ornaat ~</div>
+      </div>
+      <div>
+        <div class="stamp">~ ooit, in een vorig leven ~</div>
+        <h2>De Pennelekker</h2>
+        <p>De man heeft ooit een restaurant gerund. Verwacht dus geen voorgevouwen servetten en al zeker geen droge taart. Er wordt gegeten zoals het hoort.</p>
+      </div>
+    </div>
   </div>
 
   <!-- ============ PASSIONS ============ -->
@@ -519,6 +616,64 @@
         <p>Een koffer staat altijd half gepakt. Er is altijd nog een dorp, een markt, een uitzicht dat hij wil zien.</p>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section>
+    <div class="gallery-title reveal">
+      <div class="small">~ zeventig jaren in beeld ~</div>
+      <h2>Een leven onderweg</h2>
+    </div>
+    <div class="gallery reveal">
+      <figure class="tall">
+        <img src="../images/guido-fietst-al-lang.jpg" alt="Guido als kind op een driewieler">
+        <figcaption>begonnen met fietsen, al heel lang</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-eet.jpg" alt="Jonge Guido aan tafel">
+        <figcaption>altijd al een fijnproever</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-kameel.jpg" alt="Guido op een kameel">
+        <figcaption>op kameelhoogte door de Sahara</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-valt-aan.jpg" alt="Guido aan tafel met vork en mes">
+        <figcaption>mes en vork in aanslag</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-fietst.jpg" alt="Guido in fietsuitrusting">
+        <figcaption>helm op, klaar voor vertrek</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-ijs.jpg" alt="Guido met een ijsje in Italië">
+        <figcaption>gelato in een Italiaans steegje</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-mobi.jpg" alt="Guido in zijn mobilhome">
+        <figcaption>de mobilhome, zijn vrijheid</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-boot.jpg" alt="Guido op de boot">
+        <figcaption>op zee, op weg ergens heen</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-legt-het-uit.jpg" alt="Guido legt het uit">
+        <figcaption>hij legt het wel even uit</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-rust.jpg" alt="Guido rust in zijn campingstoel">
+        <figcaption>de welverdiende rust</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-ongelukkig.jpg" alt="Guido met zonsondergang">
+        <figcaption>zonsondergang, met de liefste</figcaption>
+      </figure>
+      <figure>
+        <img src="../images/guido-ilva.jpg" alt="Guido in Kringloop polo">
+        <figcaption>kringloopkracht in actie</figcaption>
+      </figure>
     </div>
   </section>
 

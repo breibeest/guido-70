@@ -1,17 +1,624 @@
-Jawel, het is zover!
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GUIDO · 70 · 3.08.2026</title>
+<meta name="description" content="Guido wordt 70 — kom mee vieren op 3 augustus 2026, Stichelen 70.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@200;300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --ink: #f5f1ea;
+    --muted: #888;
+    --accent: #ff5436;
+    --line: rgba(245,241,234,.15);
+  }
 
-Guido bereikt de respectabele leeftijd van 70 jaar - en dat zonder handleiding,
-reserveonderdelen of jaarlijkse keuring.
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { background: var(--bg); color: var(--ink); }
 
-Kom mee genieten van eten, drinken en gezelligheid:
- 3 augustus 2026
- 18 uur
- Stichelen 70 (ook dus 🧐)
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-Cadeautjes zijn absoluut niet nodig, maar mocht je toch iets willen meebrengen…
-een bon van Bol.com of van Van Eyck in Aalst (zijn favoriete speeltuin als beginnend fietshersteller) maakt hem altijd blij.
+  img { display: block; max-width: 100%; }
 
-We kijken er naar uit om samen deze moeilijke stap te verwerken. 🥂
+  /* ---------- Fixed nav ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 30px;
+    display: flex; justify-content: space-between; align-items: center;
+    mix-blend-mode: difference;
+    color: white;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  }
+  .nav .logo { font-family: 'Archivo Black', sans-serif; font-size: 14px; letter-spacing: 2px; }
+  .nav .date { font-variant-numeric: tabular-nums; }
 
+  /* ---------- Panel system ---------- */
+  .panel {
+    min-height: 100vh; width: 100%;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .panel-bg {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .panel-bg img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(.55) contrast(1.05) saturate(.85);
+  }
+  .panel-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, transparent 30%, transparent 70%, rgba(0,0,0,.6) 100%);
+  }
+  .panel-content {
+    position: relative; z-index: 2;
+    padding: clamp(40px, 6vw, 80px);
+    width: 100%; max-width: 1400px;
+  }
 
-Graag een bevestiging op één van de gekende nummers!
+  /* ---------- Hero ---------- */
+  .hero { background: #000; }
+  .hero .panel-bg img {
+    filter: brightness(.45) contrast(1.1) saturate(.9);
+  }
+  .hero-content {
+    text-align: center; position: relative; z-index: 3;
+  }
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 8px; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeIn 1.2s .3s forwards;
+  }
+  .hero-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(4rem, 14vw, 14rem);
+    line-height: .85;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+    opacity: 0; animation: fadeIn 1.4s .5s forwards;
+  }
+  .hero-70 {
+    display: flex; align-items: center; justify-content: center;
+    gap: clamp(20px, 4vw, 60px);
+    margin: 2rem 0 1rem;
+    opacity: 0; animation: fadeIn 1.4s .8s forwards;
+  }
+  .hero-70 .line { flex: 0 0 80px; height: 1px; background: var(--accent); }
+  .hero-70 .num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(6rem, 18vw, 18rem);
+    line-height: 1;
+    color: var(--accent);
+  }
+  .hero-meta {
+    display: flex; justify-content: center; gap: clamp(20px, 5vw, 60px);
+    margin-top: 3rem;
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    opacity: 0; animation: fadeIn 1.4s 1.1s forwards;
+  }
+  .hero-meta div { display: flex; flex-direction: column; gap: .3rem; }
+  .hero-meta .label { color: var(--muted); font-size: 10px; }
+  .hero-meta .value { color: var(--ink); font-weight: 500; }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .hero-scroll {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    z-index: 3; font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 6px;
+    opacity: 0; animation: fadeIn 1.4s 1.5s forwards, bounce 2s 2s infinite;
+  }
+  .hero-scroll .line { width: 1px; height: 40px; background: var(--muted); }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%     { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ---------- Intro ---------- */
+  .intro { background: var(--bg); min-height: 80vh; }
+  .intro-content {
+    text-align: center; max-width: 900px; padding: clamp(40px, 6vw, 100px);
+  }
+  .intro .kicker {
+    font-size: 11px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 2rem;
+  }
+  .intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.15;
+    letter-spacing: -.01em;
+  }
+  .intro h2 em { color: var(--accent); font-style: italic; }
+
+  /* ---------- Story panels ---------- */
+  .story-panel { min-height: 100vh; }
+  .story-panel .panel-content {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 6rem);
+    align-items: center;
+    padding-top: clamp(60px, 10vw, 120px);
+    padding-bottom: clamp(60px, 10vw, 120px);
+  }
+  @media (max-width: 800px) { .story-panel .panel-content { grid-template-columns: 1fr; } }
+
+  .story-panel.bg .panel-bg img { opacity: .15; filter: brightness(.5) saturate(.7); }
+  .story-panel.bg .panel-bg::after { background: linear-gradient(180deg, rgba(0,0,0,.7), rgba(0,0,0,.85)); }
+
+  .story-photo {
+    position: relative; aspect-ratio: 4/5;
+    overflow: hidden;
+  }
+  .story-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .story-photo .corner {
+    position: absolute; width: 30px; height: 30px;
+    border: 1px solid var(--accent);
+  }
+  .story-photo .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .story-photo .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .story-photo .num {
+    position: absolute; top: 20px; right: 20px;
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--accent);
+    font-size: 14px; letter-spacing: 2px;
+  }
+
+  .story-text .num {
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--accent);
+    font-size: 13px; letter-spacing: 6px;
+    margin-bottom: 1rem;
+  }
+  .story-text h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: .95;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .story-text h3 .accent { color: var(--accent); }
+  .story-text p {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    color: rgba(245,241,234,.7);
+    max-width: 50ch;
+    margin-bottom: 1rem;
+  }
+
+  /* ---------- Save the date ---------- */
+  .save-date {
+    background: var(--accent); color: #0a0a0a;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .save-date .kicker {
+    font-size: 11px; letter-spacing: 8px; text-transform: uppercase;
+    margin-bottom: 2rem;
+    color: rgba(10,10,10,.7);
+  }
+  .save-date h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: .9;
+    letter-spacing: -.04em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .save-date .when {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    max-width: 800px; margin: 3rem auto 0;
+    border-top: 1px solid rgba(10,10,10,.3);
+    border-bottom: 1px solid rgba(10,10,10,.3);
+  }
+  @media (max-width: 600px) { .save-date .when { grid-template-columns: 1fr; } }
+  .sd-cell { padding: 2rem 1rem; border-right: 1px solid rgba(10,10,10,.3); }
+  .sd-cell:last-child { border-right: none; }
+  @media (max-width: 600px) {
+    .sd-cell { border-right: none; border-bottom: 1px solid rgba(10,10,10,.3); }
+    .sd-cell:last-child { border-bottom: none; }
+  }
+  .sd-cell .lbl { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: rgba(10,10,10,.6); margin-bottom: .5rem; }
+  .sd-cell .val { font-family: 'Archivo Black', sans-serif; font-size: 1.4rem; letter-spacing: .02em; }
+
+  /* ---------- Marquee ---------- */
+  .marquee {
+    overflow: hidden; padding: 2.5rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: relative;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem; white-space: nowrap;
+    animation: scroll 30s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+  }
+  .marquee-track span { color: var(--ink); }
+  .marquee-track span:nth-child(even) { color: var(--accent); -webkit-text-stroke: 1px var(--accent); color: transparent; }
+  .marquee-track span.fill { color: var(--accent); -webkit-text-stroke: 0; }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ---------- Gallery panel ---------- */
+  .gallery-panel { padding: clamp(60px, 10vw, 120px) clamp(20px, 4vw, 60px); }
+  .gallery-panel .head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 3rem; padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .gallery-panel .head .lbl {
+    font-size: 11px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .gallery-panel .head h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+  }
+  .gallery-panel .head .count {
+    font-size: 10px; letter-spacing: 4px; color: var(--muted);
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 12px;
+  }
+  .gallery figure {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+  }
+  .gallery figure img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .6s ease, filter .6s ease;
+    filter: brightness(.85);
+  }
+  .gallery figure:hover img { transform: scale(1.05); filter: brightness(1); }
+  .gallery figure figcaption {
+    position: absolute; inset: auto 0 0 0;
+    padding: 1rem;
+    background: linear-gradient(0deg, rgba(0,0,0,.9), transparent);
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0; transform: translateY(10px); transition: all .4s;
+  }
+  .gallery figure:hover figcaption { opacity: 1; transform: translateY(0); }
+
+  .gallery .g1 { grid-column: span 6; grid-row: span 2; aspect-ratio: 1/1; }
+  .gallery .g2 { grid-column: span 3; }
+  .gallery .g3 { grid-column: span 3; }
+  .gallery .g4 { grid-column: span 3; }
+  .gallery .g5 { grid-column: span 3; }
+  .gallery .g6 { grid-column: span 4; }
+  .gallery .g7 { grid-column: span 4; }
+  .gallery .g8 { grid-column: span 4; }
+  .gallery .g9 { grid-column: span 3; }
+  .gallery .g10 { grid-column: span 3; }
+  .gallery .g11 { grid-column: span 3; }
+  .gallery .g12 { grid-column: span 3; }
+
+  @media (max-width: 800px) {
+    .gallery { grid-template-columns: repeat(4, 1fr); }
+    .gallery .g1 { grid-column: span 4; grid-row: span 2; }
+    .gallery > * { grid-column: span 2 !important; }
+    .gallery .g1 { grid-column: span 4 !important; }
+  }
+
+  /* ---------- Gift ---------- */
+  .gift-panel {
+    padding: clamp(60px, 10vw, 120px) clamp(20px, 4vw, 60px);
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .gift-panel .kicker { font-size: 11px; letter-spacing: 6px; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+  .gift-panel h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    max-width: 800px; margin: 0 auto 2rem;
+  }
+  .gift-panel .options {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .gift-panel .opt {
+    border: 1px solid var(--ink);
+    padding: 1rem 2rem;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    transition: all .3s;
+  }
+  .gift-panel .opt:hover { background: var(--ink); color: var(--bg); }
+  .gift-panel .note { color: var(--muted); font-style: italic; margin-top: 2rem; font-size: .95rem; }
+
+  /* ---------- RSVP final ---------- */
+  .rsvp-panel {
+    min-height: 60vh;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    text-align: center;
+    padding: clamp(60px, 10vw, 120px) 20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .rsvp-panel h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: .95;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    margin-bottom: 1rem;
+  }
+  .rsvp-panel h2 .accent { color: var(--accent); }
+  .rsvp-panel p {
+    color: var(--muted);
+    max-width: 50ch; margin: 0 auto;
+  }
+  .rsvp-panel .clink {
+    font-size: 3rem;
+    margin-top: 2rem;
+    display: inline-block;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 2rem;
+    text-align: center;
+    font-size: 10px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer .row { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 1rem; flex-wrap: wrap; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="logo">GUIDO · 70</span>
+  <span class="date">03.08.2026 / STICHELEN 70</span>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="panel hero">
+  <div class="panel-bg">
+    <img src="../images/guido-feest.jpg" alt="">
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">— Save the date · 03.08.2026 —</div>
+    <div class="hero-name">Guido</div>
+    <div class="hero-70">
+      <div class="line"></div>
+      <div class="num">70</div>
+      <div class="line"></div>
+    </div>
+    <div class="hero-meta">
+      <div><span class="label">Date</span><span class="value">03 / 08 / 2026</span></div>
+      <div><span class="label">Time</span><span class="value">18:00</span></div>
+      <div><span class="label">Place</span><span class="value">Stichelen 70</span></div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>scroll</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="panel intro">
+  <div class="panel-content intro-content">
+    <div class="kicker">— Voorpaginanieuws —</div>
+    <h2>
+      Zeventig jaar. <em>Zonder handleiding,</em><br>
+      reserveonderdelen of<br>
+      jaarlijkse keuring.
+    </h2>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>FIETS</span><span class="fill">·</span><span>ETEN</span><span class="fill">·</span><span>WERELD</span><span class="fill">·</span><span>GUIDO 70</span><span class="fill">·</span>
+    <span>FIETS</span><span class="fill">·</span><span>ETEN</span><span class="fill">·</span><span>WERELD</span><span class="fill">·</span><span>GUIDO 70</span><span class="fill">·</span>
+  </div>
+</div>
+
+<!-- ============ STORY 1: BIKES ============ -->
+<section class="panel story-panel bg">
+  <div class="panel-bg">
+    <img src="../images/guido-fietst.jpg" alt="">
+  </div>
+  <div class="panel-content">
+    <div class="story-photo">
+      <span class="corner tl"></span>
+      <span class="corner br"></span>
+      <span class="num">01</span>
+      <img src="../images/guido-fietst.jpg" alt="Guido fietst">
+    </div>
+    <div class="story-text">
+      <div class="num">— CHAPTER 01</div>
+      <h3>De fiets,<br><span class="accent">zijn vriend.</span></h3>
+      <p>Een rammelend kettinkje? Hij heeft het opgelost vóór je het hebt opgemerkt. Een platte band? Eventjes wegkijken, en plots is alles weer rond.</p>
+      <p>Zijn favoriete speeltuin: Van Eyck in Aalst. Een paradijs voor mannen met een passie voor moersleutels.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY 2: PENNELEKKER ============ -->
+<section class="panel story-panel bg">
+  <div class="panel-bg">
+    <img src="../images/guido-dient-op.jpg" alt="">
+  </div>
+  <div class="panel-content">
+    <div class="story-text">
+      <div class="num">— CHAPTER 02</div>
+      <h3>Restaurant<br><span class="accent">De Pennelekker.</span></h3>
+      <p>Voordat de fiets zijn levensgezel werd, was er de keuken. Een restaurant met een naam die alleen al doet watertanden.</p>
+      <p>Wie ooit aan zijn tafel zat, weet het: hier wordt gegeten zoals het hoort. Geen voorgevouwen servetten. Geen droge taart.</p>
+    </div>
+    <div class="story-photo">
+      <span class="corner tl"></span>
+      <span class="corner br"></span>
+      <span class="num">02</span>
+      <img src="../images/guido-dient-op.jpg" alt="Guido in De Pennelekker">
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY 3: TRAVEL ============ -->
+<section class="panel story-panel bg">
+  <div class="panel-bg">
+    <img src="../images/guido-kameel.jpg" alt="">
+  </div>
+  <div class="panel-content">
+    <div class="story-photo">
+      <span class="corner tl"></span>
+      <span class="corner br"></span>
+      <span class="num">03</span>
+      <img src="../images/guido-kameel.jpg" alt="Guido op kameel">
+    </div>
+    <div class="story-text">
+      <div class="num">— CHAPTER 03</div>
+      <h3>De wereld,<br><span class="accent">in beeld.</span></h3>
+      <p>Marokkaanse duinen, Italiaanse ijssalons, Alpentoppen vanuit een mobilhome. Zijn koffer staat altijd half gepakt.</p>
+      <p>Er is altijd nog een dorp, een markt, een uitzicht. Zeventig jaar, en hij gaat nog steeds vooruit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAVE THE DATE ============ -->
+<section class="panel save-date">
+  <div class="panel-content">
+    <div class="kicker">— Je bent uitgenodigd —</div>
+    <h2>Kom mee<br>vieren.</h2>
+    <div class="when">
+      <div class="sd-cell">
+        <div class="lbl">— Datum</div>
+        <div class="val">03·08·2026</div>
+      </div>
+      <div class="sd-cell">
+        <div class="lbl">— Vanaf</div>
+        <div class="val">18:00 uur</div>
+      </div>
+      <div class="sd-cell">
+        <div class="lbl">— Locatie</div>
+        <div class="val">Stichelen 70</div>
+      </div>
+    </div>
+    <p style="margin-top:2rem; font-style:italic; font-family:'Cormorant Garamond',serif; font-size:1.2rem;">"ook dus 🧐"</p>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery-panel">
+  <div class="head">
+    <div>
+      <div class="lbl">— Het Archief —</div>
+      <h2>Een leven<br>onderweg.</h2>
+    </div>
+    <div class="count">15 momenten · 70 jaar</div>
+  </div>
+  <div class="gallery">
+    <figure class="g1">
+      <img src="../images/guido-feest.jpg" alt="">
+      <figcaption>De jubilaris, anno 2025</figcaption>
+    </figure>
+    <figure class="g2">
+      <img src="../images/guido-fietst-al-lang.jpg" alt="">
+      <figcaption>1958 · de eerste tweewieler</figcaption>
+    </figure>
+    <figure class="g3">
+      <img src="../images/guido-eet.jpg" alt="">
+      <figcaption>Jonge jaren · '70s</figcaption>
+    </figure>
+    <figure class="g4">
+      <img src="../images/guido-dient-op.jpg" alt="">
+      <figcaption>De Pennelekker, in vol ornaat</figcaption>
+    </figure>
+    <figure class="g5">
+      <img src="../images/guido-valt-aan.jpg" alt="">
+      <figcaption>Mes en vork in aanslag</figcaption>
+    </figure>
+    <figure class="g6">
+      <img src="../images/guido-kameel.jpg" alt="">
+      <figcaption>Sahara, Marokko</figcaption>
+    </figure>
+    <figure class="g7">
+      <img src="../images/guido-ijs.jpg" alt="">
+      <figcaption>Gelato, Italië</figcaption>
+    </figure>
+    <figure class="g8">
+      <img src="../images/guido-boot.jpg" alt="">
+      <figcaption>Aan boord</figcaption>
+    </figure>
+    <figure class="g9">
+      <img src="../images/guido-mobi.jpg" alt="">
+      <figcaption>Mobilhome · Alpen</figcaption>
+    </figure>
+    <figure class="g10">
+      <img src="../images/guido-rust.jpg" alt="">
+      <figcaption>Welverdiende rust</figcaption>
+    </figure>
+    <figure class="g11">
+      <img src="../images/guido-legt-het-uit.jpg" alt="">
+      <figcaption>"Luister, het zit zo..."</figcaption>
+    </figure>
+    <figure class="g12">
+      <img src="../images/guido-ongelukkig.jpg" alt="">
+      <figcaption>Zonsondergang, met de liefste</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ GIFT ============ -->
+<section class="gift-panel">
+  <div class="kicker">— Onder ons —</div>
+  <h2>"Cadeautjes? Absoluut niet nodig.<br>Maar een bon… maakt hem altijd blij."</h2>
+  <div class="options">
+    <span class="opt">🎁 Bol.com</span>
+    <span class="opt">🔧 Van Eyck · Aalst</span>
+  </div>
+  <p class="note">Van Eyck is zijn favoriete speeltuin als beginnend fietshersteller.</p>
+</section>
+
+<!-- ============ RSVP ============ -->
+<section class="rsvp-panel">
+  <h2>Tot dan.<br><span class="accent">Bevestig je komst.</span></h2>
+  <p>We kijken er naar uit om samen deze moeilijke stap te verwerken. Een korte bevestiging op één van de gekende nummers maakt de organisatie blij.</p>
+  <div class="clink">🥂</div>
+</section>
+
+<footer>
+  <div class="row">
+    <span>GUIDO · 70</span>
+    <span>03.08.2026</span>
+    <span>STICHELEN 70</span>
+  </div>
+</footer>
+
+</body>
+</html>
