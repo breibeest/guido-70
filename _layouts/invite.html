@@ -490,6 +490,77 @@
   @media (max-width: 600px) { .gallery figure.tall { grid-row: span 1; aspect-ratio: 1; } }
   .gallery figure.tall img { object-position: 15% center; }
 
+  /* ---------- Lightbox ---------- */
+  .gallery figure { cursor: zoom-in; }
+
+  .lightbox {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(10, 6, 3, .96);
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(50px, 8vw, 80px) clamp(60px, 8vw, 100px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s ease;
+    backdrop-filter: blur(6px);
+  }
+  .lightbox.open { opacity: 1; pointer-events: auto; }
+  .lightbox-img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
+    transition: opacity .25s ease;
+  }
+  .lightbox-img.swap { opacity: 0; }
+  .lightbox-caption {
+    position: absolute; bottom: 18px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    color: var(--gold-bright);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    letter-spacing: .5px;
+    padding: 0 1rem;
+  }
+  .lightbox-count {
+    position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  .lightbox-btn {
+    position: absolute;
+    background: transparent;
+    border: 1px solid rgba(230, 176, 69, .5);
+    color: var(--gold);
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .25s ease;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1;
+    padding: 0;
+  }
+  .lightbox-btn:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .lightbox-close {
+    top: 16px; right: 18px;
+    width: 44px; height: 44px;
+    font-size: 20px;
+  }
+  .lightbox-nav {
+    top: 50%; transform: translateY(-50%);
+    width: 52px; height: 52px;
+    font-size: 32px;
+    padding-bottom: 4px;
+  }
+  .lightbox-prev { left: 14px; }
+  .lightbox-next { right: 14px; }
+  @media (max-width: 600px) {
+    .lightbox { padding: 60px 12px 80px; }
+    .lightbox-nav { width: 42px; height: 42px; font-size: 26px; }
+    .lightbox-prev { left: 6px; }
+    .lightbox-next { right: 6px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   }
@@ -777,6 +848,16 @@
 
 </main>
 
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+  <div class="lightbox-count"><span id="lb-cur">1</span> / <span id="lb-total">1</span></div>
+  <button class="lightbox-btn lightbox-close" id="lb-close" aria-label="Sluiten">✕</button>
+  <button class="lightbox-btn lightbox-nav lightbox-prev" id="lb-prev" aria-label="Vorige">‹</button>
+  <img class="lightbox-img" id="lb-img" alt="">
+  <button class="lightbox-btn lightbox-nav lightbox-next" id="lb-next" aria-label="Volgende">›</button>
+  <div class="lightbox-caption" id="lb-caption"></div>
+</div>
+
 <script>
   // Sparkles
   const sp = document.getElementById('sparkles');
@@ -795,6 +876,72 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Lightbox
+  (() => {
+    const figures = Array.from(document.querySelectorAll('.gallery figure'));
+    if (!figures.length) return;
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbCap = document.getElementById('lb-caption');
+    const lbCur = document.getElementById('lb-cur');
+    const lbTotal = document.getElementById('lb-total');
+    lbTotal.textContent = figures.length;
+    let idx = 0;
+
+    const show = (i, animate = true) => {
+      idx = (i + figures.length) % figures.length;
+      const f = figures[idx];
+      const img = f.querySelector('img');
+      const cap = f.querySelector('figcaption');
+      const set = () => {
+        lbImg.src = img.src;
+        lbImg.alt = img.alt || '';
+        lbCap.textContent = cap ? cap.textContent : '';
+        lbCur.textContent = idx + 1;
+        lbImg.classList.remove('swap');
+      };
+      if (animate) {
+        lbImg.classList.add('swap');
+        setTimeout(set, 150);
+      } else { set(); }
+    };
+
+    const openLb = (i) => {
+      show(i, false);
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeLb = () => {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    figures.forEach((f, i) => f.addEventListener('click', () => openLb(i)));
+    document.getElementById('lb-close').addEventListener('click', closeLb);
+    document.getElementById('lb-prev').addEventListener('click', (e) => { e.stopPropagation(); show(idx - 1); });
+    document.getElementById('lb-next').addEventListener('click', (e) => { e.stopPropagation(); show(idx + 1); });
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      else if (e.key === 'ArrowLeft') show(idx - 1);
+      else if (e.key === 'ArrowRight') show(idx + 1);
+    });
+
+    // Touch swipe
+    let touchX = null;
+    lb.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', (e) => {
+      if (touchX == null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
+      touchX = null;
+    }, { passive: true });
+  })();
 </script>
 
 </body>
