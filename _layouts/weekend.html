@@ -806,7 +806,7 @@
   <!-- ============ RSVP ============ -->
   <section class="rsvp reveal">
     <h2>Wij kijken er naar uit</h2>
-    <p>Eindigen doen we op {{ page.end_day }} — maar wie dat graag wil, kan ook dan nog blijven slapen.<br>Nog vragen? Stel ze gerust op de gekende nummers, of spring nekker binnen.</p>
+    <p>Eindigen doen we op {{ page.end_day }}{% if page.stay_over %} — maar wie dat graag wil, kan ook dan nog blijven slapen{% endif %}.<br>Nog vragen? Stel ze gerust op de gekende nummers, of spring nekker binnen.</p>
     <div class="clink">🥂</div>
   </section>
 
